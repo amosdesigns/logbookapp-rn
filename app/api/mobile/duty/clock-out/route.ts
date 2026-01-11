@@ -1,24 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { authenticateRequest } from '@/lib/api/mobile-auth'
-import { clockIn } from '@/lib/actions/duty-session-actions'
+import { clockOut } from '@/lib/actions/duty-session-actions'
 import { z } from 'zod'
 
-const clockInSchema = z.object({
-  locationId: z.string().cuid().optional(),
-  shiftId: z.string().cuid().optional(),
+const clockOutSchema = z.object({
+  dutySessionId: z.string().cuid(),
+  notes: z.string().optional(),
 })
 
 export async function POST(req: NextRequest) {
   try {
-    // 1. Authenticate
     const authResult = await authenticateRequest(req)
     if (!authResult.ok) {
       return NextResponse.json(authResult, { status: 401 })
     }
 
-    // 2. Parse and validate body
     const body = await req.json()
-    const validation = clockInSchema.safeParse(body)
+    const validation = clockOutSchema.safeParse(body)
 
     if (!validation.success) {
       return NextResponse.json(
@@ -31,16 +29,13 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // 3. Call server action
-    // Note: clockIn() internally calls auth() to get the authenticated user
-    const result = await clockIn(validation.data)
+    const result = await clockOut(validation.data.dutySessionId, validation.data.notes)
 
-    // 4. Return result
     return NextResponse.json(result, {
       status: result.ok ? 200 : 400
     })
   } catch (error) {
-    console.error('[API] Clock in error:', error)
+    console.error('[API] Clock out error:', error)
     return NextResponse.json(
       { ok: false, message: 'Internal server error' },
       { status: 500 }

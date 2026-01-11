@@ -1,20 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { authenticateRequest } from '@/lib/api/mobile-auth'
-import { getActiveDutySession } from '@/lib/actions/duty-session-actions'
+import { dismissNotification } from '@/lib/actions/notification-actions'
 
-export async function GET(req: NextRequest) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const authResult = await authenticateRequest(req)
     if (!authResult.ok) {
       return NextResponse.json(authResult, { status: 401 })
     }
 
-    // getActiveDutySession() uses auth() internally to get current user
-    const result = await getActiveDutySession()
+    const result = await dismissNotification(params.id)
 
-    return NextResponse.json(result)
+    return NextResponse.json(result, {
+      status: result.ok ? 200 : 400
+    })
   } catch (error) {
-    console.error('[API] Get active duty error:', error)
+    console.error('[API] Dismiss notification error:', error)
     return NextResponse.json(
       { ok: false, message: 'Internal server error' },
       { status: 500 }
