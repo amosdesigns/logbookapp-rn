@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { authenticateRequest } from '@/lib/api/auth-middleware'
+import { authenticateRequest } from '@/lib/api/mobile-auth'
 import { getActiveDutySession } from '@/lib/actions/duty-session-actions'
 
 export async function GET(req: NextRequest) {

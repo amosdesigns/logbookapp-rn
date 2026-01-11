@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { authenticateRequest } from '@/lib/api/auth-middleware'
+import { authenticateRequest } from '@/lib/api/mobile-auth'
 import { submitSafetyChecklist } from '@/lib/actions/safety-checklist-actions'
 import { z } from 'zod'
 

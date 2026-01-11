@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { authenticateRequest } from '@/lib/api/auth-middleware'
+import { authenticateRequest } from '@/lib/api/mobile-auth'
 import { dismissNotification } from '@/lib/actions/notification-actions'
 
 export async function PATCH(

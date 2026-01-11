@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { authenticateRequest } from '@/lib/api/auth-middleware'
+import { authenticateRequest } from '@/lib/api/mobile-auth'
 import { getActiveLocations } from '@/lib/actions/location-actions'
 
 export async function GET(req: NextRequest) {

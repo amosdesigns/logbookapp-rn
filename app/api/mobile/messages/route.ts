@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { authenticateRequest } from '@/lib/api/auth-middleware'
+import { authenticateRequest } from '@/lib/api/mobile-auth'
 import { getMyMessages, sendGuardMessage } from '@/lib/actions/message-actions'
 import { z } from 'zod'
 

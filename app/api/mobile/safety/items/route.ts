@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { authenticateRequest } from '@/lib/api/auth-middleware'
+import { authenticateRequest } from '@/lib/api/mobile-auth'
 import { getSafetyChecklistItems } from '@/lib/actions/safety-checklist-actions'
 
 export async function GET(req: NextRequest) {

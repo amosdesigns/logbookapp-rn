@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { authenticateRequest } from '@/lib/api/auth-middleware'
+import { authenticateRequest } from '@/lib/api/mobile-auth'
 import { getLogs, createLog } from '@/lib/actions/logs'
 import { createLogSchema } from '@/lib/validations/log'
 
